@@ -106,6 +106,20 @@ public class EmployeeController {
     }
 
     /**
+     *
+     * @param id
+     * @param status
+     * @autor lianghx
+     * @return
+     */
+    @PutMapping("status/{status}")
+    @ApiOperation("启用与禁用员工")
+    public Result setEmpStatus(Long id, @PathVariable Integer status) {
+        employeeService.update(id,status);
+        return Result.success("SUCCESS!");
+    }
+
+    /**
      * 退出
      * @autor lianghx
      * @hate 2025/02/1 下午 2:00

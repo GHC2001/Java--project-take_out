@@ -19,6 +19,7 @@ import com.sky.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -119,6 +120,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         result.setTotal(page.getTotal());
         result.setRecords(page.getResult());
         return result;
+    }
+
+    /**
+     * 修改员工状态
+     * @context：1启用-0禁用
+     * @param id
+     * @param status
+     */
+    @Override
+    public void update(Long id, Integer status) {
+        Employee employee = new Employee();
+        employee.setId(id);
+        employee.setStatus(status);
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(BaseContext.getCurrentId());
+
+        employeeMapper.update(employee);
     }
 
 }

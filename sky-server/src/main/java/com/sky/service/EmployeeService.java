@@ -24,4 +24,12 @@ public interface EmployeeService {
     void sava(EmployeeDTO employeeDTO);
 
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * 修改员工状态
+     * @context：1启用-0禁用
+     * @param id
+     * @param status
+     */
+    void update(Long id, Integer status);
 }

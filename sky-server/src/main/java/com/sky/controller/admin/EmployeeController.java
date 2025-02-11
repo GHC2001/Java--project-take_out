@@ -3,8 +3,10 @@ package com.sky.controller.admin;
 import com.sky.constant.JwtClaimsConstant;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.EmployeeService;
 import com.sky.utils.JwtUtil;
@@ -13,12 +15,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,9 +37,10 @@ public class EmployeeController {
 
     /**
      * 登录
-     *
      * @param employeeLoginDTO
-     * @return
+     * @autor lianghx
+     * @hate 2025/01/23 上午 9:01
+     * @return result
      */
     @PostMapping("/login")
     @ApiOperation("员工登陆")
@@ -71,7 +72,8 @@ public class EmployeeController {
      * 新增
      * @param employeeDTO
      * @autor lianghx
-     * @hate 2025/02/10 上午 8:30
+     * @hate 2025/02/1 上午 8:30
+     * @return result
      * */
     @PostMapping
     @ApiOperation("员工新增")
@@ -87,9 +89,27 @@ public class EmployeeController {
     }
 
     /**
+     * 分页查询
+     * @autor lianghx
+     * @hate 2025/02/1 下午 15:15
+     * @return result
+     * */
+    @GetMapping("page")
+    @ApiOperation("员工分页查询")
+    public Result pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        if (employeePageQueryDTO == null) {
+            return Result.error("参数为空，请检查");
+        }
+        log.info("员工分页查询，参数为：{}", employeePageQueryDTO);
+        PageResult result =  employeeService.pageQuery(employeePageQueryDTO);
+        return Result.success(result);
+    }
+
+    /**
      * 退出
-     *
-     * @return
+     * @autor lianghx
+     * @hate 2025/02/1 下午 2:00
+     * @return result
      */
     @PostMapping("/logout")
     @ApiOperation("员工登出")

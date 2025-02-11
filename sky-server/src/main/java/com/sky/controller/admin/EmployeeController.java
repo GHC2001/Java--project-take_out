@@ -1,6 +1,7 @@
 package com.sky.controller.admin;
 
 import com.sky.constant.JwtClaimsConstant;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
 import com.sky.properties.JwtProperties;
@@ -63,6 +64,26 @@ public class EmployeeController {
                 .build();
 
         return Result.success(employeeLoginVO);
+    }
+
+
+    /**
+     * 新增
+     * @param employeeDTO
+     * @autor lianghx
+     * @hate 2025/02/10
+     * */
+    @PostMapping
+    @ApiOperation("员工新增")
+    public Result save(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("员工新增，参数为：{}", employeeDTO);
+        if (employeeDTO == null) {
+            return Result.error("参数为空，请检查");
+        }
+
+        employeeService.sava(employeeDTO);
+
+        return Result.success("SUCCESS!");
     }
 
     /**

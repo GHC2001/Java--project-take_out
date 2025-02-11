@@ -3,6 +3,7 @@ package com.sky.service.impl;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
+import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
@@ -67,9 +68,10 @@ public class EmployeeServiceImpl implements EmployeeService {
      * */
     @Override
     public void sava(EmployeeDTO employeeDTO) {
-        //TODO 如果员工已存在
+        //如果员工已存在
         //java.sql.SQLIntegrityConstraintViolationException: Duplicate entry
         //'zhangsan' for key 'employee.idx_username'
+        //此问题已在全局异常捕获中处理
 
 
         Employee employee = Employee.builder()
@@ -90,9 +92,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setUpdateTime(LocalDateTime.now());
 
         // 创建人、修改人
-        //TODO 在此先写死 稍后处理
-        employee.setCreateUser(1L);
-        employee.setUpdateUser(1L);
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
 

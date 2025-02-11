@@ -30,6 +30,9 @@ public class GlobalExceptionHandler {
 
     /**
      * 捕获SQL异常
+     * @param ex
+     * autor lianghx
+     * date 2025/02/10 上午9:56
      * */
     //java.sql.SQLIntegrityConstraintViolationException: Duplicate entry
     //'zhangsan' for key 'employee.idx_username'
